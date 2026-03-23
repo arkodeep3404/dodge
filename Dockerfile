@@ -14,6 +14,7 @@ COPY src/backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir curl_cffi || true
 
 COPY src/backend/ .
+COPY dataset/ /app/dataset/
 COPY --from=frontend /frontend/out /app/static
 
 EXPOSE 3000
