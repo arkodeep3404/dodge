@@ -329,9 +329,13 @@ async def process_query_stream(message: str, conversation_id: str | None = None)
                     kind = event.get("event", "")
                     if kind == "on_chat_model_stream":
                         chunk = event.get("data", {}).get("chunk")
-                        if chunk and chunk.content:
-                            full_response += chunk.content
-                            yield {"type": "token", "content": chunk.content}
+                        # Skip tool call chunks — only stream actual response text
+                        if chunk and chunk.content and not getattr(chunk, "tool_call_chunks", None) and not getattr(chunk, "tool_calls", None):
+                            # Also skip if content looks like raw JSON tool args
+                            text = chunk.content
+                            if not (text.strip().startswith("{") and '"entity_type"' in text):
+                                full_response += text
+                                yield {"type": "token", "content": text}
                     elif kind == "on_tool_start":
                         tool_name = event.get("name", "unknown")
                         tool_input = event.get("data", {}).get("input", {})

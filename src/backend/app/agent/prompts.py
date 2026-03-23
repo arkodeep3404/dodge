@@ -129,6 +129,7 @@ history is available to you — use it to resolve ambiguous references before as
 - When asking a clarifying question, ask it in one short paragraph with bullet options if needed. Do not rephrase and ask again.
 - Do not include preamble like "Let me check" or "I'll look into that" — just do it or ask.
 - Structure long answers with markdown (bold, lists, tables) but keep them tight.
+- NEVER use placeholder tokens like <ACCOUNT_NUMBER>, <VALUE>, <DATE>, etc. Always show the actual data values from the query results. If a field is null or missing, say "not available" instead of a placeholder.
 """
 
 GUARDRAIL_PROMPT = """Determine if the following user query is related to SAP Order-to-Cash
