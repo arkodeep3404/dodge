@@ -78,8 +78,8 @@ def _get_llm(model: str | None = None):
         max_tokens=4096,
         timeout=120,
         model_kwargs={
-            "frequency_penalty": 0.3,
-            "presence_penalty": 0.2,
+            "frequency_penalty": 0.1,
+            "presence_penalty": 0.1,
         },
     )
 
